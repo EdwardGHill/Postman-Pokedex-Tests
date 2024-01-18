@@ -1,0 +1,1946 @@
+{
+	"info": {
+		"_postman_id": "3d08f90b-64a3-44c7-a8b8-9494b9b4cc0d",
+		"name": "Pokedex FastAPI Reggression Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register_user invalid username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bf7ddfc-6826-4f15-8207-a6d5225ef7ba",
+						"exec": [
+							"pm.test('Status code is 422', function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Error message for invalid username\", function () {\r",
+							"    pm.expect(pm.response.json().detail[0].msg).to.eql(\r",
+							"        \"string does not match regex \\\"^[a-zA-Z0-9]{3,15}$\\\"\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "a3f46996-4416-4164-a8d3-3c040f51a6f6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{invalidUsername}}\",\r\n  \"email\": \"{{newEmail}}\",\r\n  \"password\": \"{{newPassword}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/auth/register"
+			},
+			"response": []
+		},
+		{
+			"name": "register_user invalid email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bf7ddfc-6826-4f15-8207-a6d5225ef7ba",
+						"exec": [
+							"pm.test('Status code is 422', function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Error message for invalid email\", function () {\r",
+							"    pm.expect(pm.response.json().detail[0].msg).to.eql(\r",
+							"        \"value is not a valid email address\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "aed3c66a-b9d9-4499-ac66-69707c3faa09",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{newUsername}}\",\r\n  \"email\": \"{{invalidEmail}}\",\r\n  \"password\": \"{{newPassword}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/auth/register"
+			},
+			"response": []
+		},
+		{
+			"name": "register_user invalid password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bf7ddfc-6826-4f15-8207-a6d5225ef7ba",
+						"exec": [
+							"pm.test('Status code is 422', function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Error message for invalid password\", function () {\r",
+							"    pm.expect(pm.response.json().detail[0].msg).to.eql(\r",
+							"        \"string does not match regex \\\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@$!%*?&.,])[A-Za-z\\\\d@$!%*?&.,]{8,20}$\\\"\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "60fcb090-70f5-412d-82f2-ff440b340af9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{newUsername}}\",\r\n  \"email\": \"{{newEmail}}\",\r\n  \"password\": \"{{invalidPassword}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/auth/register"
+			},
+			"response": []
+		},
+		{
+			"name": "register_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bf7ddfc-6826-4f15-8207-a6d5225ef7ba",
+						"exec": [
+							"pm.test('Status code is 201', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response has expected structure\", function () {\r",
+							"    pm.response.to.have.jsonBody({\r",
+							"        id: pm.expect(pm.response.json().id).to.be.a('number'),\r",
+							"        username: pm.variables.get(\"newUsername\"),\r",
+							"        email: pm.variables.get(\"newEmail\")\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "c8541c80-75a3-4023-bb3b-91993cf11a64",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{newUsername}}\",\r\n  \"email\": \"{{newEmail}}\",\r\n  \"password\": \"{{newPassword}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/auth/register"
+			},
+			"response": []
+		},
+		{
+			"name": "register_user duplicate username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bf7ddfc-6826-4f15-8207-a6d5225ef7ba",
+						"exec": [
+							"pm.test('Status code is 400', function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "18d824b5-7099-44cf-9721-5fbc1c599946",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{duplicateUsername}}\",\r\n  \"email\": \"{{validEmail}}\",\r\n  \"password\": \"{{newPassword}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/auth/register"
+			},
+			"response": []
+		},
+		{
+			"name": "register_user duplicate email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bf7ddfc-6826-4f15-8207-a6d5225ef7ba",
+						"exec": [
+							"pm.test('Status code is 400', function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "de90875e-8c22-43a4-acb0-fc8b980d2f8a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{validUsername}}\",\r\n  \"email\": \"{{duplicateEmail}}\",\r\n  \"password\": \"{{newPassword}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/auth/register"
+			},
+			"response": []
+		},
+		{
+			"name": "login invalid username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0cc8e19c-9983-4591-a0bd-01167f505110",
+						"exec": [
+							"pm.test('Status code is 401', function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"})\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(`Correct error message`, function () {\r",
+							"    pm.expect(responseBody.detail).to.eql(\"Incorrect username or password\");\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "fe4992e0-144e-4824-9818-f94bb3549045",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "{{invalidUsername}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{newPassword}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": "https://pokedextest.onrender.com/auth/token"
+			},
+			"response": []
+		},
+		{
+			"name": "login invalid password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0cc8e19c-9983-4591-a0bd-01167f505110",
+						"exec": [
+							"pm.test('Status code is 401', function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"})\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(`Correct error message`, function () {\r",
+							"    pm.expect(responseBody.detail).to.eql(\"Incorrect username or password\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "68208110-dab9-4df8-9c9d-3aa18fe2bff6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "{{newUsername}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{invalidPassword}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": "https://pokedextest.onrender.com/auth/token"
+			},
+			"response": []
+		},
+		{
+			"name": "add_to_favorites unauthorised",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a87fb5b-6127-48ff-866a-5441ae378e17",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not authenticated\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "5664cc5c-14be-45f0-8d95-225c0353e07c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pokemon_id\": \"{{id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/favorites/"
+			},
+			"response": []
+		},
+		{
+			"name": "get_favorites unauthorised",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4e972fe-0fb5-4112-98d0-df71f6047682",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "8217fd3d-bd4f-4766-85ee-167ac3d6ab83",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/favorites/"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_favorite unauthorised",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5897cb9-2c7f-441f-9d54-d4d8a8e70da2",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "5b81e5ca-02c7-48a9-86e9-e92f03036ead",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/favorites/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "add_to_collection unauthorised",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a87fb5b-6127-48ff-866a-5441ae378e17",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not authenticated\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "1bbc74b5-fa59-4010-a7ad-f978308c041a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pokemon_id\": \"{{id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/collection/"
+			},
+			"response": []
+		},
+		{
+			"name": "get_collection unauthorised",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4e972fe-0fb5-4112-98d0-df71f6047682",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "346ebcbd-6bb7-472c-8271-eaf96ca0d052",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/collection/"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_collection unauthorised",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5897cb9-2c7f-441f-9d54-d4d8a8e70da2",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "afbb2f6b-4f02-4d5e-8855-df37c8143080",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/collection/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_user_account unauthorised",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bf7ddfc-6826-4f15-8207-a6d5225ef7ba",
+						"exec": [
+							"pm.test('Status code is 401', function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ac953061-2622-4683-a438-08b2e81a5db2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/auth/delete-account"
+			},
+			"response": []
+		},
+		{
+			"name": "login_for_access_token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0cc8e19c-9983-4591-a0bd-01167f505110",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(`Correct user is logged in`, function () {\r",
+							"    pm.expect(responseBody.username).to.eql(pm.collectionVariables.get('newUsername'));\r",
+							"})\r",
+							"\r",
+							"pm.test('Access token is valid', function () {\r",
+							"    pm.expect(responseBody.access_token).to.be.a('string').and.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test('Token type is bearer', function () {\r",
+							"    pm.expect(responseBody.token_type).to.eql('bearer');\r",
+							"});\r",
+							"\r",
+							"pm.test('Response has expected structure', function () {\r",
+							"    pm.expect(responseBody).to.have.all.keys('access_token', 'token_type', 'username');\r",
+							"});\r",
+							"\r",
+							"pm.test('Password is not exposed in the response', function () {\r",
+							"    pm.expect(responseBody).to.not.have.property('password');\r",
+							"});\r",
+							"\r",
+							"//set access token for the rest of the test//\r",
+							"pm.collectionVariables.set('access_token', responseBody.access_token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "5910cf62-3937-4778-bf7e-32d3bd3d88e1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "{{newUsername}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{newPassword}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": "https://pokedextest.onrender.com/auth/token"
+			},
+			"response": []
+		},
+		{
+			"name": "get_favorites empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4e972fe-0fb5-4112-98d0-df71f6047682",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('No favorites for the user', function () {\r",
+							"    const favorites = pm.response.json();\r",
+							"    pm.expect(favorites).to.be.an('array').that.is.empty;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "2b26c67f-63fb-4f6f-a1a6-5b923324a52e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/favorites/"
+			},
+			"response": []
+		},
+		{
+			"name": "add_to_favorites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a87fb5b-6127-48ff-866a-5441ae378e17",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(`Pokemon added to favorites is ${pm.collectionVariables.get('id')}`, function () {\r",
+							"    // Convert the string to a number for comparison\r",
+							"    var expectedId = Number(pm.collectionVariables.get('id'));\r",
+							"    pm.expect(responseBody.pokemon_id).to.eql(expectedId);\r",
+							"})\r",
+							"\r",
+							"pm.test('Response has expected structure', function () {\r",
+							"    pm.expect(responseBody).to.have.all.keys('id', 'pokemon_id');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "c009c5a4-8f8e-4f0f-bdb3-0342daaaf834",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pokemon_id\": \"{{id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/favorites/"
+			},
+			"response": []
+		},
+		{
+			"name": "add_to_favorites handle duplicate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "53ba3e8f-d726-4711-a931-1293ab0317bb",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Pokemon alrady in favorites error\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"This pokemon is already in Favorites\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "d547c967-759e-48dc-9d47-040a87dd1d18",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pokemon_id\": {{id}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/favorites/"
+			},
+			"response": []
+		},
+		{
+			"name": "get_favorites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4e972fe-0fb5-4112-98d0-df71f6047682",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Response is an array', function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test('Each item has the expected structure', function () {\r",
+							"    const favorites = pm.response.json();\r",
+							"    favorites.forEach(function (favorite) {\r",
+							"        pm.expect(favorite).to.have.property('id');\r",
+							"        pm.expect(favorite).to.have.property('pokemon_id');\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "b5ba7c68-0634-43b7-bec7-56b7ddebdd47",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/favorites/"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_favorite",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5897cb9-2c7f-441f-9d54-d4d8a8e70da2",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "2bc106be-5be1-4c0f-b303-da97698dbf94",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/favorites/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_favorite nonexistant",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a4d45ec-bb87-44c3-bc9a-0b3b5114628c",
+						"exec": [
+							"pm.test(\"Pokemon not in favorites list\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Favorite not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "1a68b54e-6789-474e-b53a-b225558177e0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "https://pokedextest.onrender.com/favorites/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "get_collection empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96603e98-d015-47e9-bad0-185fe4628bed",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('No pokemon in collection', function () {\r",
+							"    const favorites = pm.response.json();\r",
+							"    pm.expect(favorites).to.be.an('array').that.is.empty;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "e2a4f034-74c6-4d65-8fc6-cabbc7fc6d46",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/collection/"
+			},
+			"response": []
+		},
+		{
+			"name": "add_to_collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c9ba731-9c9b-4876-bfde-f80f54ab3fda",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(`Pokemon added to collection has id ${pm.collectionVariables.get('id')}`, function () {\r",
+							"    // Convert the string to a number for comparison\r",
+							"    var expectedId = Number(pm.collectionVariables.get('id'));\r",
+							"    pm.expect(responseBody.pokemon_id).to.eql(expectedId);\r",
+							"})\r",
+							"\r",
+							"pm.test('Response has expected structure', function () {\r",
+							"    pm.expect(responseBody).to.have.all.keys('id', 'pokemon_id');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "62b2f2ce-8ac1-4cfb-aa81-9e99219412cb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pokemon_id\": \"{{id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/collection/"
+			},
+			"response": []
+		},
+		{
+			"name": "add_to_collection handle duplicate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b587d234-efb9-485a-8f71-85e6e4f53218",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Pokemon alrady in collection error\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"This pokemon is already in Collection\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "33cd7a9e-0bae-454f-a65e-b5dfc81c0a53",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pokemon_id\": \"{{id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://pokedextest.onrender.com/collection/"
+			},
+			"response": []
+		},
+		{
+			"name": "get_collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a7a90e2-d798-40f1-b0c7-48590970a62c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Response is an array', function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test('Each item has the expected structure', function () {\r",
+							"    const favorites = pm.response.json();\r",
+							"    favorites.forEach(function (favorite) {\r",
+							"        pm.expect(favorite).to.have.property('id');\r",
+							"        pm.expect(favorite).to.have.property('pokemon_id');\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ee566a3b-42b1-4495-9a8f-68a8e73405aa",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/collection/"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39ad82ad-eb6d-487a-8f85-8721fbe3d558",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "f35127e3-6bff-4f14-9bf5-226c932aa424",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/collection/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_collection nonexistant",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a20aff9-be61-4c2a-b36b-97b33f70e9a3",
+						"exec": [
+							"pm.test(\"Pokemon not in collection list\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Collection not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "74677fdc-8e20-487a-8650-4c2c50d94489",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/collection/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_user_account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bf7ddfc-6826-4f15-8207-a6d5225ef7ba",
+						"exec": [
+							"pm.test('Status code is 204', function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "6615db8d-c19b-47fe-b584-db876a0eff05",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/auth/delete-account"
+			},
+			"response": []
+		},
+		{
+			"name": "get_all_pokemon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7af21706-fd6a-4048-b9a8-1059c1364f27",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"var responseBody = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"Response has correct format\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array').that.is.not.empty;\r",
+							"    pm.expect(responseBody[0]).to.have.property('type_1');\r",
+							"    pm.expect(responseBody[0]).to.have.property('id');\r",
+							"    pm.expect(responseBody[0]).to.have.property('generation');\r",
+							"    pm.expect(responseBody[0]).to.have.property('total');\r",
+							"    pm.expect(responseBody[0]).to.have.property('attack');\r",
+							"    pm.expect(responseBody[0]).to.have.property('sp_atk');\r",
+							"    pm.expect(responseBody[0]).to.have.property('speed');\r",
+							"    pm.expect(responseBody[0]).to.have.property('name');\r",
+							"    pm.expect(responseBody[0]).to.have.property('type_2');\r",
+							"    pm.expect(responseBody[0]).to.have.property('legendary');\r",
+							"    pm.expect(responseBody[0]).to.have.property('hp');\r",
+							"    pm.expect(responseBody[0]).to.have.property('defense');\r",
+							"    pm.expect(responseBody[0]).to.have.property('sp_def');\r",
+							"    pm.expect(responseBody[0]).to.have.property('icon_name');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct number of Pokemon\", function () {\r",
+							"    pm.expect(responseBody).to.have.lengthOf(pm.collectionVariables.get(\"pokemonCount\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ceec1438-3de8-412f-8069-26c91fbf4c0e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/"
+			},
+			"response": []
+		},
+		{
+			"name": "get_pokemon_by_name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69c7ff0c-2bd3-4fed-973b-7b64b4d67227",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(pm.collectionVariables.get(\"pokemonName\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "e7728071-5cf3-4da6-a7c4-fd17e783698e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/name/{{pokemonName}}"
+			},
+			"response": []
+		},
+		{
+			"name": "get_pokemon_by_search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5a93308-1184-4aaf-b1f8-666024b1e8f0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"var searchTerm = pm.collectionVariables.get(\"searchTerm\");\r",
+							"\r",
+							"pm.test(\"Search term is present in every Pokemon name\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array'); // Ensure the response is an array\r",
+							"\r",
+							"    responseBody.forEach(function (pokemon) {\r",
+							"        pm.expect(pokemon.name.toLowerCase()).to.include(searchTerm.toLowerCase());\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "fcb7caac-2edc-443a-89b9-6f4210f2f944",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/search/{{searchTerm}}"
+			},
+			"response": []
+		},
+		{
+			"name": "get_pokemon_by_id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d8d51475-d3ee-4d94-9fab-a31ab99dec51",
+						"exec": [
+							"//Set pokemon id\r",
+							"// pm.collectionVariables.set(\"id\", \"7\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce4f10ea-6586-4e78-9bbb-f20034c3fe26",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(`Pokemon Id is ${pm.collectionVariables.get('id')}`, function () {\r",
+							"    // Convert the string to a number for comparison\r",
+							"    var expectedId = Number(pm.collectionVariables.get('id'));\r",
+							"    pm.expect(responseBody.id).to.eql(expectedId);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "a473c88a-0e37-421b-9e4f-342291612a8e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/id/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "get_pokemon_by_type1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "703a0ccb-18e0-4061-aa81-80239ffd6db0",
+						"exec": [
+							"// //set the type\r",
+							"// pm.collectionVariables.set(\"type1\", \"Flying\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "60649587-1800-4b94-88d7-8952276f17e0",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"//test 1st pokemon in list\r",
+							"pm.test(`Pokemon type is ${ pm.collectionVariables.get('type1') }`, function () {\r",
+							"    pm.expect(responseBody[0].type_1).to.eql(pm.collectionVariables.get('type1'));\r",
+							"})\r",
+							"//test every pokemon in list\r",
+							"pm.test(`${ pm.collectionVariables.get('type1') } is every Pokemon type1`, function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    responseBody.forEach(function (pokemon) {\r",
+							"        pm.expect(pokemon.type_1).to.eql(pm.collectionVariables.get('type1'));\r",
+							"    });\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "c9bc2f1b-7db5-4fc3-ad3d-dedb9ce511f2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/type1/{{type1}}"
+			},
+			"response": []
+		},
+		{
+			"name": "get_pokemon_by_type2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2801fa16-1f03-4d20-82f7-083054107475",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"//test 1st pokemon in list\r",
+							"pm.test(`Pokemon type is ${ pm.collectionVariables.get('type2') }`, function () {\r",
+							"    pm.expect(responseBody[0].type_2).to.eql(pm.collectionVariables.get('type2'));\r",
+							"})\r",
+							"//test every pokemon in list\r",
+							"pm.test(`${ pm.collectionVariables.get('type2') } is every Pokemon type2`, function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    responseBody.forEach(function (pokemon) {\r",
+							"        pm.expect(pokemon.type_2).to.eql(pm.collectionVariables.get('type2'));\r",
+							"    });\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "37877f62-f880-4dbd-95ff-fbeed7086a87",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/type2/{{type2}}"
+			},
+			"response": []
+		},
+		{
+			"name": "get_pokemon_by_type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a022397-74ae-49d4-8a57-35148cc7e879",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"//check 1st response\r",
+							"pm.test(`Pokemon type1 or type2 is ${ pm.variables.get('type') }`, function () {\r",
+							"    pm.expect(responseBody[0].type_1 || responseBody[0].type_2).to.eql(pm.variables.get('type'));\r",
+							"})\r",
+							"//check all responses\r",
+							"pm.test(`${pm.variables.get('type')} is every Pokemon type1 or type2`, function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    \r",
+							"    responseBody.forEach(function (pokemon) {\r",
+							"        pm.expect(pokemon.type_1 === pm.variables.get('type') || pokemon.type_2 === pm.variables.get('type')).to.be.true;\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "42fa02ff-98ea-4c67-95c6-8d35eaf7c579",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/type/{{type}}"
+			},
+			"response": []
+		},
+		{
+			"name": "get_pokemon_by_generation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "098f9531-4a76-415b-8e32-54bf94bf3120",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"//test 1st pokemon in list\r",
+							"pm.test(`Pokemon generation is ${pm.collectionVariables.get('generation')}`, function () {\r",
+							"    pm.expect(responseBody[0].generation).to.eql(parseInt(pm.collectionVariables.get('generation')));\r",
+							"});\r",
+							"//test every pokemon in list\r",
+							"pm.test(`Every Pokemon is generation ${pm.collectionVariables.get('generation')}`, function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    pm.expect(responseBody.every(pokemon => pokemon.generation === parseInt(pm.collectionVariables.get('generation')))).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "fba6c77c-01d0-4ed4-8056-a1e31ad84c32",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/generation/{{generation}}"
+			},
+			"response": []
+		},
+		{
+			"name": "get_pokemon_by_legendary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ffcecf2-f152-481e-bbc6-2dba80e27979",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"//test 1st pokemon in list\r",
+							"pm.test(`Pokemon is Legendary`, function () {\r",
+							"    pm.expect(responseBody[0].legendary).to.eql(\"True\");\r",
+							"});\r",
+							"//test every pokemon in list\r",
+							"pm.test(`Every Pokemon is Legendary`, function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    pm.expect(responseBody.every(pokemon => pokemon.legendary === \"True\")).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "5c4e4df6-997d-427e-9e88-cab67a0be7bb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/legendary"
+			},
+			"response": []
+		},
+		{
+			"name": "get_random_pokemon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd58ad4f-cd1f-40e6-9c78-b3bb35e3c1b1",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "b454d82a-c35f-4106-a6d2-acc108713add",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/random"
+			},
+			"response": []
+		},
+		{
+			"name": "get_random_team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10f1c5c3-d178-42aa-9b06-6cbf88504371",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Team has 6 Pokemon\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    pm.expect(responseBody).to.have.lengthOf(6);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"All Pokemon IDs are unique\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"\r",
+							"    const pokemonIds = new Set();\r",
+							"\r",
+							"    responseBody.forEach(function (pokemon) {\r",
+							"        pm.expect(pokemon.id).to.be.a('number');\r",
+							"        pm.expect(pokemonIds.has(pokemon.id)).to.be.false;\r",
+							"\r",
+							"        pokemonIds.add(pokemon.id);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9c30b2a8-0f38-4fa0-8f98-eeea6010d56e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/random_team"
+			},
+			"response": []
+		},
+		{
+			"name": "get_strong_team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a9ca652-7cd6-49a2-bc8a-74419f1b516a",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Team has 6 Pokemon\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    pm.expect(responseBody).to.have.lengthOf(6);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"All Pokemon have total attribute over 450\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"\r",
+							"    responseBody.forEach(function (pokemon) {\r",
+							"        pm.expect(pokemon.total).to.be.a('number');\r",
+							"        pm.expect(pokemon.total).to.be.greaterThan(450);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "7b16d8c9-b2b6-4e7e-97bb-e3b352440e58",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/strong_team"
+			},
+			"response": []
+		},
+		{
+			"name": "get_weak_team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c521108-2e55-41bf-94c1-d82ec5891303",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Team has 6 Pokemon\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    pm.expect(responseBody).to.have.lengthOf(6);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"All Pokemon have total attribute under 350\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"\r",
+							"    responseBody.forEach(function (pokemon) {\r",
+							"        pm.expect(pokemon.total).to.be.a('number');\r",
+							"        pm.expect(pokemon.total).to.be.lessThan(350);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "39527f59-af72-4c4d-a75e-9898708cfe02",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/weak_team"
+			},
+			"response": []
+		},
+		{
+			"name": "get_legendary_team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "78888ee1-3e79-477d-b0c2-1a9782d4470f",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Team has 6 Pokemon\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    pm.expect(responseBody).to.have.lengthOf(6);\r",
+							"});\r",
+							"\r",
+							"pm.test(`Every Pokemon is Legendary`, function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    pm.expect(responseBody.every(pokemon => pokemon.legendary === \"True\")).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "42b94cb4-c880-48d7-8779-ca1b5a4ea37a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/legendary_team"
+			},
+			"response": []
+		},
+		{
+			"name": "get_rainbow_team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "933eaaae-efc6-4be3-b5d6-69405b36c36d",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Team has 6 Pokemon\", function () {\r",
+							"    pm.expect(responseBody).to.be.an('array');\r",
+							"    pm.expect(responseBody).to.have.lengthOf(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "784c0018-60fe-4173-8fda-bb2eabaf6b73",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://pokedextest.onrender.com/pokemon/rainbow_team"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "37e881e9-abb0-4449-948e-3f7e428b0a4f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a39ac426-9bd3-4409-9568-3d83e4937373",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "type1",
+			"value": ""
+		},
+		{
+			"key": "id",
+			"value": "123"
+		},
+		{
+			"key": "newUsername",
+			"value": "Postman",
+			"type": "string"
+		},
+		{
+			"key": "newEmail",
+			"value": "Postman@Postman.com",
+			"type": "string"
+		},
+		{
+			"key": "newPassword",
+			"value": "Postman1.",
+			"type": "string"
+		},
+		{
+			"key": "invalidUsername",
+			"value": "invalid!",
+			"type": "string"
+		},
+		{
+			"key": "invalidEmail",
+			"value": "invalid.com",
+			"type": "string"
+		},
+		{
+			"key": "invalidPassword",
+			"value": "invalid",
+			"type": "string"
+		},
+		{
+			"key": "duplicateUsername",
+			"value": "postman",
+			"type": "string"
+		},
+		{
+			"key": "duplicateEmail",
+			"value": "postman@postman.com",
+			"type": "string"
+		},
+		{
+			"key": "validEmail",
+			"value": "validemail@validemail.om",
+			"type": "string"
+		},
+		{
+			"key": "validUsername",
+			"value": "ValidUsername",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "pokemonCount",
+			"value": "721",
+			"type": "string"
+		},
+		{
+			"key": "pokemonName",
+			"value": "Mew",
+			"type": "string"
+		},
+		{
+			"key": "searchTerm",
+			"value": "ele",
+			"type": "string"
+		},
+		{
+			"key": "type2",
+			"value": "Fire",
+			"type": "string"
+		},
+		{
+			"key": "type",
+			"value": "Grass",
+			"type": "string"
+		},
+		{
+			"key": "generation",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}
